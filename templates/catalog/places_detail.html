@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Название: {{ places.name }}</h1>
+
+  <p><strong>Часть света: </strong> {{ places.part_of_the_world }}</p>
+  <p><strong>Страна: </strong> {{ places.country }}</p>
+  <p><strong>Город: </strong> {{ places.city }}</p>
+  <p><strong>Описание: </strong> {{ places.description }}</p>
+  <center><img src="{{ places.image.url }}"></center>
+
+{% endblock %}

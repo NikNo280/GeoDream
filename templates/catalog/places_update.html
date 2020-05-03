@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+{% block content %}
+    <h1> {{ places.name }}</h1>
+   <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <ul>
+        {{ form.as_p }}
+    </ul>
+    <input type="submit" value="Добавить элемент"/>
+    </form>
+
+{% endblock %}

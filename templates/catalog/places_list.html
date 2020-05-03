@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <body>
+    <h1>Список мест</h1>
+
+    {% if places_list %}
+    <ul>
+
+    {% for places in places_list %}
+      <li>
+        <a href="{{ places.get_absolute_url }}">{{ places.name}}</a>
+        <p><strong>Теги :</strong>
+            {% for tags in places.tags.all %}
+                #{{ tags }}
+                {% if not forloop.last %},
+        {% endif %}{% endfor %}</p>
+          {% if perms.catalog.can_mark_returned %}
+            <a href="{% url 'place-update' places.id %}">Изменить, </a>
+            <a href="{% url 'place-delete' places.id %}">Удалить</a>
+          {% endif %}
+      </li>
+         <p></p>
+      {% endfor %}
+
+     </ul>
+    {% else %}
+      <p>Не найденно</p>
+     {% endif %}
+    </body>
+{% endblock %}

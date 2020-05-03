@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Local Library Home</h1>
+
+  <p>Приветствуем на сайте <em>GeoDream</em>, тут вы найдете места, которые вам захочется посетить.</p>
+
+
+  <p>Модели на этом сайте:</p>
+  <ul>
+    <li><strong>Части света:</strong> {{ num_PartOfTheWorld }}</li>
+    <li><strong>Страны:</strong> {{ num_Countries }}</li>
+    <li><strong>Города:</strong> {{ num_Cities }}</li>
+    <li><strong>Места:</strong> {{ num_Places }}</li>
+  </ul>
+
+{% endblock %}

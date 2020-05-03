@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+{% block content %}
+    <h3>Вы точно хотите удалить  {{ places.name }}?</h3>
+   <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <ul>
+        {{ form.as_p }}
+    </ul>
+    <input type="submit" value="Да"/>
+    </form>
+
+{% endblock %}
