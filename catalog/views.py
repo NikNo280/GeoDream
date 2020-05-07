@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.views.generic.edit import FormView
-from .forms import CustomUserCreationForm
+from django.urls import reverse_lazy
+from django.views import generic
+from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
+from .forms import CustomUserCreationForm, PlacesForm
 from .models import PartOfTheWorld, Countries, Cities, Places
 
 
@@ -23,21 +25,13 @@ def index(request):
                  'num_Cities': num_Cities, 'num_Places': num_Places},
     )
 
-from django.views import generic
 
 class PlacesListView(generic.ListView):
     model = Places
 
+
 class PlacesDetailView(generic.DetailView):
     model = Places
-
-
-##############################################
-
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Places
-from .forms import PlacesForm
-from django.urls import reverse_lazy
 
 
 class PlacesCreate(CreateView):
@@ -48,10 +42,12 @@ class PlacesCreate(CreateView):
     def form_valid(self, form):
         return super(PlacesCreate, self).form_valid(form)
 
+
 class PlacesUpdate(UpdateView):
     model = Places
     fields = '__all__'
     template_name = 'catalog/places_update.html'
+
 
 class PlacesDelete(DeleteView):
     model = Places
@@ -64,6 +60,7 @@ class RegisterFormView(FormView):
     fields = ['username', 'password', 'email', 'verified']
     success_url = reverse_lazy('login')
     template_name = "registration/user_create.html"
+
     def form_valid(self, form):
         form.save()
         return super(RegisterFormView, self).form_valid(form)

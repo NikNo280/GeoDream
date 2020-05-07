@@ -30,7 +30,9 @@ ALLOWED_HOSTS = []
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/catalog/'
 
-
+FIXTURE_DIRS = (
+   'C:/Users/nikit/PycharmProjects/GeoDream/fixtures/',
+)
 # Application definition
 
 INSTALLED_APPS = [
@@ -88,7 +90,10 @@ DATABASES = {
         'HOST':'localhost',
     }
 }
-
+EMAIL_HOST_USER = 'nikitastar280@gmail.com'
+ACCOUNT_EMAIL_UNIQUE = True
+ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 LOGGING = {
     'version': 1,

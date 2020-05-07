@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 
+
 class PartOfTheWorld(models.Model):
     name = models.CharField(max_length=255, help_text="Название части света")
 
@@ -31,6 +32,7 @@ class Cities(models.Model):
     def get_absolute_url(self):
         return reverse('Cities-detail', args=[str(self.id)])
 
+
 class Tags(models.Model):
     name = models.CharField(max_length=255, help_text="Тег")
 
@@ -40,6 +42,7 @@ class Tags(models.Model):
     def get_absolute_url(self):
         return reverse('place-detail', args=[str(self.id)])
 
+
 class Places(models.Model):
     part_of_the_world = models.ForeignKey('PartOfTheWorld', on_delete=models.SET_NULL, null=True)
     country = models.ForeignKey('Countries', on_delete=models.SET_NULL, null=True)
@@ -47,7 +50,7 @@ class Places(models.Model):
     name = models.CharField(max_length=255, help_text="Название места")
     description = models.CharField(max_length=1255, help_text="Описание")
     image = models.ImageField(upload_to='images')
-    tags = models.ManyToManyField('Tags',  help_text="Теги")
+    tags = models.ManyToManyField('Tags', help_text="Теги")
 
     def __str__(self):
         return self.name
@@ -55,7 +58,7 @@ class Places(models.Model):
     def get_absolute_url(self):
         return reverse('place-detail', args=[str(self.id)])
 
+
 class CustomUser(AbstractUser):
     verified = models.NullBooleanField(default=False, help_text="Подписаться на рассылку сообщений?")
     pass
-

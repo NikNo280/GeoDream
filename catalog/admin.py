@@ -1,7 +1,5 @@
 from django.contrib import admin
 from .models import PartOfTheWorld, Countries, Cities, Places, Tags, CustomUser
-from .forms import CustomUserCreationForm, CustomUserChangeForm
-from django.contrib.auth.admin import UserAdmin
 
 
 @admin.register(PartOfTheWorld)
@@ -24,7 +22,6 @@ class TagsAdmin(admin.ModelAdmin):
     pass
 
 
-
 # Define the admin class
 class PlacesAdmin(admin.ModelAdmin):
     list_display = ('part_of_the_world', 'country', 'city', 'name')
@@ -37,8 +34,9 @@ class PlacesAdmin(admin.ModelAdmin):
 admin.site.register(Places, PlacesAdmin)
 
 
-class CustomUserAdmin(admin.ModelAdmin): #todo
+class CustomUserAdmin(admin.ModelAdmin):
     model = CustomUser
-    list_display = ['email', 'username']
+    list_display = ['username', 'email']
+
 
 admin.site.register(CustomUser, CustomUserAdmin)

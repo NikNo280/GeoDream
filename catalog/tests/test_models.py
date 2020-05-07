@@ -1,46 +1,37 @@
 from django.test import TestCase
+from catalog.models import *
+import pytest
 
-from catalog.models import Places, PartOfTheWorld, Countries, Cities, Tags
+class ModelTest(TestCase):
 
-class PlacesModelTest(TestCase):
+    def test_PartOfTheWorld(self):
+        partoftheworld = PartOfTheWorld.objects.create()
+        partoftheworld.name = 'Европа'
+        assert partoftheworld.__str__() == 'Европа'
 
-    @classmethod
-    def setUpTestData(cls):
-        Places.objects.create(part_of_the_world=PartOfTheWorld.objects.create(name='Европа'),
-                              country=Countries.objects.create(name='Беларусь'),
-                              city=Cities.objects.create(name='Минск'),
-                              name='Музей ВОВ', description='Описание музея')
+    def test_Cities(self):
+        cities = Cities.objects.create()
+        cities.name = 'Минск'
+        cities.save()
+        assert cities.__str__() == 'Минск'
 
-    def test_places_part_of_the_world(self):
-        places = Places.objects.get(id=1)
-        places_part_of_the_world = places._meta.get_field('part_of_the_world').verbose_name
-        self.assertEquals(places_part_of_the_world, 'part of the world')
+    def test_Tags(self):
+        tags = Tags.objects.create()
+        tags.name = 'Родина'
+        tags.save()
+        assert tags.__str__() == 'Родина'
 
-    def test_places_country(self):
-        places = Places.objects.get(id=1)
-        places_part_of_the_world = places._meta.get_field('country').verbose_name
-        self.assertEquals(places_part_of_the_world, 'country')
+    def test_Places(self):
+        partoftheworld = PartOfTheWorld.objects.create(name='Европа')
+        country = Countries.objects.create(name='Франция')
+        city = Cities.objects.create(name='Франция')
+        places = Places.objects.create(part_of_the_world=partoftheworld, country=country, city=city, name='Эйфелевая башня', description='Описание', image='media/2-Zhangye_Danxia_Landform-e1528945590663.jpg')
+        assert places.__str__() == 'Эйфелевая башня'
 
-    def test_places_city(self):
-        places = Places.objects.get(id=1)
-        places_part_of_the_world = places._meta.get_field('city').verbose_name
-        self.assertEquals(places_part_of_the_world, 'city')
 
-    def test_places_name(self):
-        places = Places.objects.get(id=1)
-        places_name = places._meta.get_field('name').verbose_name
-        self.assertEquals(places_name, 'name')
-
-    def test_places_description(self):
-        places = Places.objects.get(id=1)
-        places_description = places._meta.get_field('description').verbose_name
-        self.assertEquals(places_description, 'description')
-
-    def test_object_name(self):
-        places = Places.objects.get(id=1)
-        expected_object_name = '%s' % (places.name)
-        self.assertEquals(expected_object_name, str(places))
-
-    def test_get_absolute_url(self):
-        places = Places.objects.get(id=1)
-        self.assertEquals(places.get_absolute_url(), '/catalog/places/1')
+@pytest.mark.parametrize("countries_name", ['Беларусь', 'Россия'])
+def test_Countries(countries_name):
+    countries = Countries.objects.create()
+    countries.name = countries_name
+    countries.save()
+    assert countries.__str__() == countries_name

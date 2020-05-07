@@ -1,0 +1,25 @@
+[
+  {
+    "model": "catalog.PartOfTheWorld",
+    "name": "PartOfTheWorld",
+    "fields": {
+      "id": "666",
+      "name": "Австралия"
+    }
+  },
+  {
+    "model": "catalog.CustomUser",
+    "name": "CustomUser",
+    "fields": {
+      "id": "616",
+      "password": "asfaslgksagja",
+      "is_superuser": "True",
+      "username": "adminadmin",
+      "first_name": "True",
+      "last_name": "Admin",
+      "email": "true_admin@gmail.com",
+      "is_staff": "True",
+      "is_active": "True"
+    }
+  }
+]
