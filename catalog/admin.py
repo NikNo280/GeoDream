@@ -1,6 +1,10 @@
+import datetime
 from django.contrib import admin
-from .models import PartOfTheWorld, Countries, Cities, Places, Tags, CustomUser
-
+from django.core.mail import send_mail
+from multiprocessing.dummy import Manager
+from django.template.loader import render_to_string
+from .models import *
+from GeoDream.settings import EMAIL_HOST_USER
 
 @admin.register(PartOfTheWorld)
 class PartOfTheWorldAdmin(admin.ModelAdmin):
@@ -38,5 +42,27 @@ class CustomUserAdmin(admin.ModelAdmin):
     model = CustomUser
     list_display = ['username', 'email']
 
+class EmailSending(admin.ModelAdmin):
+
+    def save_model(self, request, obj, form, change):
+        message = render_to_string('mail.html', {
+            'text': obj.text,
+            'sending_time': obj.sending_time,
+        })
+
+        recipients = [
+            x.email for x in CustomUser.objects.all() if x.verified
+        ]
+
+        def send(email):
+            send_mail(obj.heading, message, EMAIL_HOST_USER, [email])
+
+        pool = Manager().Pool(4)
+        pool.map(send, recipients)
+        obj.heading = ''
+        obj.text = None
+        super().save_model(request, obj, form, change)
+
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Newsletter, EmailSending)

@@ -90,10 +90,15 @@ DATABASES = {
         'HOST':'localhost',
     }
 }
-EMAIL_HOST_USER = 'nikitastar280@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'nikita.sidorenko.work@gmail.com'
+EMAIL_HOST_PASSWORD = "Heckfyjdbx1"
 ACCOUNT_EMAIL_UNIQUE = True
+EMAIL_USE_TLS = True
 ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
 
 LOGGING = {
     'version': 1,

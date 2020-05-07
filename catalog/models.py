@@ -62,3 +62,10 @@ class Places(models.Model):
 class CustomUser(AbstractUser):
     verified = models.NullBooleanField(default=False, help_text="Подписаться на рассылку сообщений?")
     pass
+
+
+class Newsletter(models.Model):
+    heading = models.CharField('Заголовок', blank=True, max_length=500)
+    text = models.TextField('Текст ответа на e-mail', null=True, blank=True)
+    sending_time = models.DateTimeField("Время отправки", null=True, blank=True)
+    email_adress = models.ManyToManyField("CustomUser", null=True, blank=True)
