@@ -1,10 +1,10 @@
-import datetime
 from django.contrib import admin
 from django.core.mail import send_mail
 from multiprocessing.dummy import Manager
 from django.template.loader import render_to_string
 from .models import *
 from GeoDream.settings import EMAIL_HOST_USER
+
 
 @admin.register(PartOfTheWorld)
 class PartOfTheWorldAdmin(admin.ModelAdmin):
@@ -26,7 +26,6 @@ class TagsAdmin(admin.ModelAdmin):
     pass
 
 
-# Define the admin class
 class PlacesAdmin(admin.ModelAdmin):
     list_display = ('part_of_the_world', 'country', 'city', 'name')
     fields = ['name', ('part_of_the_world', 'country', 'city'), 'description', 'image', 'tags']
@@ -34,13 +33,10 @@ class PlacesAdmin(admin.ModelAdmin):
     pass
 
 
-# Register the admin class with the associated model
-admin.site.register(Places, PlacesAdmin)
-
-
 class CustomUserAdmin(admin.ModelAdmin):
     model = CustomUser
     list_display = ['username', 'email']
+
 
 class EmailSending(admin.ModelAdmin):
 
@@ -66,3 +62,4 @@ class EmailSending(admin.ModelAdmin):
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Newsletter, EmailSending)
+admin.site.register(Places, PlacesAdmin)

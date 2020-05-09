@@ -7,22 +7,16 @@ from .models import PartOfTheWorld, Countries, Cities, Places
 
 
 def index(request):
-    """
-    Функция отображения для домашней страницы сайта.
-    """
-    # Генерация "количеств" некоторых главных объектов
-    num_PartOfTheWorld = PartOfTheWorld.objects.all().count()
-    num_Countries = Countries.objects.all().count()
-    num_Cities = Cities.objects.all().count()
-    num_Places = Places.objects.all().count()
+    num_partoftheworld = PartOfTheWorld.objects.all().count()
+    num_countries = Countries.objects.all().count()
+    num_cities = Cities.objects.all().count()
+    num_places = Places.objects.all().count()
 
-    # Отрисовка HTML-шаблона index.html с данными внутри
-    # переменной контекста context
     return render(
         request,
         'index.html',
-        context={'num_PartOfTheWorld': num_PartOfTheWorld, 'num_Countries': num_Countries,
-                 'num_Cities': num_Cities, 'num_Places': num_Places},
+        context={'num_PartOfTheWorld': num_partoftheworld, 'num_Countries': num_countries,
+                 'num_Cities': num_cities, 'num_Places': num_places},
     )
 
 

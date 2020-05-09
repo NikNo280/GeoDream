@@ -1,6 +1,7 @@
 from django.test import TestCase
 from catalog.forms import *
 
+
 class TestForm(TestCase):
 
     def test_registration(self):

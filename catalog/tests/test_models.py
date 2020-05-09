@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from catalog.models import *
 import pytest
 

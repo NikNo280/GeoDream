@@ -3,6 +3,7 @@ from .models import Places
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import CustomUser
 
+
 class PlacesForm(forms.ModelForm):
     class Meta:
         model = Places
@@ -10,7 +11,6 @@ class PlacesForm(forms.ModelForm):
 
 
 class CustomUserCreationForm(UserCreationForm):
-
     class Meta(UserCreationForm):
         model = CustomUser
         fields = ('username', 'email', 'verified')
@@ -38,7 +38,6 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomUserChangeForm(UserChangeForm):
-
     class Meta:
         model = CustomUser
         fields = ('username', 'email')
