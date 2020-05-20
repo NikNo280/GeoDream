@@ -52,6 +52,11 @@ class Places(models.Model):
     image = models.ImageField(upload_to='images')
     tags = models.ManyToManyField('Tags', help_text="Теги")
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['name'])
+        ]
+
     def __str__(self):
         return self.name
 
@@ -61,7 +66,13 @@ class Places(models.Model):
 
 class CustomUser(AbstractUser):
     verified = models.NullBooleanField(default=False, help_text="Подписаться на рассылку сообщений?")
-    pass
+    class Meta:
+        indexes = [
+            models.Index(fields=['email']),
+            models.Index(fields=['verified']),
+            models.Index(fields=['username']),
+            models.Index(fields=['password']),
+        ]
 
 
 class Newsletter(models.Model):

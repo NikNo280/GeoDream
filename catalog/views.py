@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 from .forms import CustomUserCreationForm, PlacesForm
-from .models import PartOfTheWorld, Countries, Cities, Places
+from .models import *
 
 
 def index(request):
@@ -17,6 +17,15 @@ def index(request):
         'index.html',
         context={'num_PartOfTheWorld': num_partoftheworld, 'num_Countries': num_countries,
                  'num_Cities': num_cities, 'num_Places': num_places},
+    )
+
+def verification(request):
+    user = CustomUser.objects.get(username=request.user.username)
+    user.verified = True
+    user.save()
+    return render(
+        request,
+        'registration/user_verification.html',
     )
 
 

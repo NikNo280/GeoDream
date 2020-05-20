@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.core.mail import send_mail
-from multiprocessing.dummy import Manager
+import multiprocessing.dummy as multiprocessing
 from django.template.loader import render_to_string
 from .models import *
 from GeoDream.settings import EMAIL_HOST_USER
@@ -35,25 +35,25 @@ class PlacesAdmin(admin.ModelAdmin):
 
 class CustomUserAdmin(admin.ModelAdmin):
     model = CustomUser
-    list_display = ['username', 'email']
+    list_display = ['username', 'email', 'verified']
 
 
 class EmailSending(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         message = render_to_string('mail.html', {
-            'text': obj.text,
+            'text': obj.text + '\n' + "http://127.0.0.1:8000/catalog/verification",
             'sending_time': obj.sending_time,
         })
 
         recipients = [
-            x.email for x in CustomUser.objects.all() if x.verified
+            x.email for x in CustomUser.objects.all() if not x.verified
         ]
 
         def send(email):
             send_mail(obj.heading, message, EMAIL_HOST_USER, [email])
 
-        pool = Manager().Pool(4)
+        pool = multiprocessing.Pool()
         pool.map(send, recipients)
         obj.heading = ''
         obj.text = None

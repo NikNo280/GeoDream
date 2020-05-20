@@ -60,6 +60,14 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'GeoDream.urls'
 
 TEMPLATES = [
+{
+   'BACKEND': 'django.template.backends.jinja2.Jinja2',
+   'DIRS': [],
+   'APP_DIRS': True,
+   'OPTIONS': {
+     'environment': 'GeoDream.jinja2.environment'
+   },
+ },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],

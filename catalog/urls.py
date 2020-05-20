@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^places/add/$', PlacesCreate.as_view(), name='place-add'),
     url(r'^places/(?P<pk>[-\w]+)/delete/$', PlacesDelete.as_view(), name='place-delete'),
     url(r'^places/registration/$', RegisterFormView.as_view(), name='user-registration'),
+    url('', views.verification, name='verification'),
 ]
