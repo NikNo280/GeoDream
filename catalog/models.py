@@ -71,12 +71,9 @@ class CustomUser(AbstractUser):
             models.Index(fields=['email']),
             models.Index(fields=['verified']),
             models.Index(fields=['username']),
-            models.Index(fields=['password']),
         ]
 
 
 class Newsletter(models.Model):
-    heading = models.CharField('Заголовок', blank=True, max_length=500)
-    text = models.TextField('Текст ответа на e-mail', null=True, blank=True)
     sending_time = models.DateTimeField("Время отправки", null=True, blank=True)
     email_adress = models.ManyToManyField("CustomUser", null=True, blank=True)
